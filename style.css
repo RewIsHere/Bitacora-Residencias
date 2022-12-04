@@ -1,0 +1,240 @@
+a{
+    font-style: bold ;
+    font-size: 1.5rem;
+    margin:0 auto;
+    color: black;
+}
+
+h2{
+    color:aqua;
+}
+.NAVEGADOR{
+    margin: 0 auto;
+    font-size: 1.2rem;
+    font-style: sans-serif;
+    color: rgb(94, 18, 18);
+    background-size: cover;
+}
+.INDICE{
+    margin: 0 auto;
+    font-size: 1.2rem;
+    font-style: sans-serif;
+    color: rgb(255, 255, 255);
+
+}
+
+.dropdown{
+    display: inline-block;
+    position: relative;
+}
+header{
+    color: black;
+    background-color:#800000 ;
+    background-size: 60px;
+    width: 100%;
+    padding: 15px;
+}
+
+body{
+    
+    margin: 0 auto;
+    font-size: 1.2rem;
+    font-family: sans-serif;
+}
+
+p{
+    line-height: 1.4;
+}
+a{
+    outline: none;
+}
+a:link{
+    color: #014253;
+    text-align:right;
+}
+a:visited{
+    color: #217ac9;
+    
+}
+a:focus{
+    border-bottom: 5px  solid;
+    
+}
+a:hover{
+    border-bottom: 5px solid;
+    background: color #0f82d4;
+    
+}
+a:active{
+    background: #014253;
+  color: #f1feaa;
+  
+}
+
+body{
+    font-family:'Courier New', Courier, monospace;
+    margin: 0;
+    background:url(LOGO.jpg) ;
+    background-size: cover;
+    background-attachment: fixed;
+}
+*{
+    box-sizing: border-box;
+    color: black;
+   
+}
+.contenedor{
+ width: 100%;
+ padding: 15px;   
+}
+.contenedor1{
+    width: 100%;
+    padding: 15px;  
+}
+.tel{
+    width: 100%;
+    padding: 15px;
+}
+
+
+.REGISTRATE{
+    background:rgb(255, 255, 255) ;
+    margin-top: 150px;
+    padding: 3px;
+}
+.SUBIDA{
+    background-color: white;
+    margin-top:150px ;
+  
+}
+h1{
+    text-align: center;
+    color: #1a2537;
+    font-size: 40px;
+}
+input[type="tel"]{
+    font-size: 20px;
+    width: 82%;
+    padding: 10px;
+    border: none;
+}
+input[type="email"]{
+    font-size: 20px;
+    width: 82%;
+    padding: 10px;
+    border: none; 
+}
+input[type="text"]{
+    font-size: 20px;
+    width: 82%;
+    padding: 10px;
+    border: none;
+}
+input[type="password"]{
+    font-size: 20px;
+    width: 82%;
+    padding: 10px;
+    border: none;
+}
+input.contenedor{
+    margin-bottom: 15px;
+    border: 1px solid #aaa;
+}
+
+input {
+	width: calc(100% - 20px);
+	padding: 9px;
+	margin: auto;
+	margin-top: 12px;
+	font-size: 16px
+}
+.icon{
+    min-width: 50px;
+    text-align: center;
+    color: rgb(110, 5, 5);
+}
+.button{
+    border: none;
+    width: 80%;
+    color: white;
+    font-size: 20px;
+    background: #220c51 ;
+    padding: 5px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.bot_reset{
+    border: none;
+    width: 80%;
+    color: white;
+    font-size: 20px;
+    background: #370a49 ;
+    padding: 5px 5px;
+    border-radius: 5px;
+    cursor: pointer; 
+}
+
+.button:hover{
+    background: rgb(164, 14, 34);
+}
+
+p{
+    text-align: center;
+}
+.link{
+    text-decoration:none;
+    color: rgb(110, 5, 5);
+    font-weight: 600;
+}
+.link:hover{
+    color: rgb(5, 110, 78);
+}
+@media(min-width:768px)
+{
+    .REGISTRATE{
+        margin: auto;
+        width: 500px;
+        margin-top: 150px;
+        border-radius: 2px;
+    }
+}
+
+    .SUBIDA{
+        margin: auto;
+        width: 500px;
+        margin-top: 150px;
+        border-radius: 2px;
+    }
+
+
+.ok{
+    text-align: center;
+    width: 100%;
+    padding: 12px;
+    background-color: #1e6;
+    color: #fff;
+}
+
+.bad{
+    text-align: center;
+    width: 50%;
+    padding: 5px;
+    background-color: rgb(17, 61, 238);
+    color: #fff;
+}
+h3.ok{
+    font-style: italic;
+    background: #0f82d4;
+    color: #1e6;
+    width: 100%;
+}
+
+form {
+	padding: 50px 20px;
+	background-color: #ededed;
+	margin: calc(25% + 100px);
+	margin-top: 70px;
+	padding-top: 28px;
+	margin-bottom: 30px
+}
