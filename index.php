@@ -2,18 +2,22 @@
 <html lang="en">
 
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="BITACORA  RESIDENCIAS ITSPR">
     <meta name="key" content="BITACORA, REDICENCIAS, ITSPR, INSTITUTO TECNOLOGICO SUPERIOR DE POZA RICA">
     <META NAME="AUTHOR" CONTENT="Omar Nayef Pineda Blanco">
     <title>BITACORA ITSPR</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="IMAGENES_BD/LOGO_ITSPR.jpg" type="image/x-icon">
-    <img src="IMAGENES_BD/Tira_logo.jpg" width="1400" height="200">
+    <link rel="shortcut icon" href="assets/LOGO_ITSPR.jpg" type="image/x-icon">
 </head>
 
 <body>
-
+    <img src="assets/Tira_logo.jpg" width="1400" height="200">
+    <img src="assets/LOGO_ITSPR.jpg" width="100">
     <header>
+
+
         <nav class="nav-supe">
             <a href="index.php" class="input-nav-supe">Inicio</a>
             <a href="registro.php" class="input-nav-supe">REGISTRARSE</a>

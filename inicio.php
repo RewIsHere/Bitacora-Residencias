@@ -2,7 +2,7 @@
 // We need to use sessions, so you should always start sessions using the below code.
 session_start();
 // If the user is not logged in redirect to the login page...
-if (!isset($_SESSION['loggedin'])) {
+if (!isset($_SESSION['SesionIniciada'])) {
     header('Location: index.php');
     exit;
 }
@@ -28,6 +28,7 @@ if (!isset($_SESSION['loggedin'])) {
     <div class="content">
         <h2>Home Page</h2>
         <p>Welcome back, <?= $_SESSION['nombre'] ?>!</p>
+        <p>COMPLETA TU PERFIL, <a href="empresa.php">LLENA LOS DATOS DE LA EMPRESA </a></p>
     </div>
 </body>
 

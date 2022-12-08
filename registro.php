@@ -1,3 +1,12 @@
+<?php
+// We need to use sessions, so you should always start sessions using the below code.
+session_start();
+// If the user is not logged in redirect to the login page...
+if (isset($_SESSION['SesionIniciada'])) {
+    header('Location: inicio.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -17,14 +26,18 @@
     <header>
         <nav>
             <a href="index.php">Inicio</a>
-            <a href="registro.php" target="_blank">REGISTRARSE</a>
-            <a href="login.php" target="_blank">INICIAR SESION</a>
+            <a href="registro.php">REGISTRARSE</a>
+            <a href="login.php">INICIAR SESION</a>
         </nav>
     </header>
-    <form class="REGISTRATE" method="post" action="Logica/register_logica.php">
+    <form class="REGISTRATE" method="post" action="includes/register.php">
         <H1>REGISTRATE</H1>
         <DIV CLASS="contenedor">
 
+            <nav>
+                <a href="#">ALUMNO</a>
+                <a href="docente-registro.php">DOCENTE</a>
+            </nav>
             <div class="input-contenedor">
                 <i class="fa-solid fa-person icon"></i>
                 <input type="text" name="nombre" placeholder="Nombre" required>

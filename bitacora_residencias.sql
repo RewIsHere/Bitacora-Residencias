@@ -69,6 +69,7 @@ CREATE TABLE `docs_alumno` (
   `Reporte_final` varchar(200) NOT NULL,
   `Cumpl_resi_doce` varchar(200) NOT NULL,
   `Eva_segui` varchar(200) NOT NULL,
+  `Eva_repor` varchar(200) NOT NULL,
   `Car_termin_resi` varchar(200) NOT NULL,
   `Liberacion_repor` varchar(200) NOT NULL,
   `Id_alumno` varchar(15) NOT NULL,
@@ -96,8 +97,8 @@ CREATE TABLE `empresa` (
   `E-mail` varchar(60) NOT NULL,
   `Tel_contacto` int(15) NOT NULL,
   `Horario_Contacto` varchar(50) NOT NULL,
-  `Fecha_ini` datetime NOT NULL,
-  `Fecha_fin` datetime NOT NULL,
+  `Fecha_ini` date NOT NULL,
+  `Fecha_fin` date NOT NULL,
   `Id_alumno` varchar(15) NOT NULL,
   FOREIGN KEY (`Id_alumno`)
   REFERENCES `alumno`(`num_control`) 
@@ -127,4 +128,56 @@ DELIMITER $
 CREATE DEFINER=`root`@`localhost` PROCEDURE `verificarCuenta`(IN `nocontrol` VARCHAR(255))
     NO SQL
 SELECT num_control FROM alumno  WHERE num_control=nocontrol$
+DELIMITER ;
+
+-- PROCEDIMIENTO ALMACENADO PARA REGISTRAR A DOCENTES
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registar_docente`(
+nombre varchar(40),
+apellido_pat varchar(40),
+apellido_mat varchar(40),
+carrera varchar(60),
+tel int(11),
+correo varchar(60),
+contraseña varchar(20)
+)
+BEGIN
+insert into `docente`(`nombre`, `apellido_pat`, `apellido_mat`, `carrera`, `tel`, `correo`, `contraseña`) value(nombre, apellido_pat, apellido_mat, carrera, tel, correo, contraseña);
+END$$
+DELIMITER ;
+
+-- PROCEDIMIENTO ALMACENADO PARA VERIFICAR SI LA CUENTA DEL DOCENTE EXISTE
+DELIMITER $
+CREATE DEFINER=`root`@`localhost` PROCEDURE `verificarCuentaDocente`(IN `email` VARCHAR(255))
+    NO SQL
+SELECT correo FROM docente  WHERE correo=email$
+DELIMITER ;
+
+-- PROCEDIMIENTO ALMACENADO PARA REGISTRAR A DOCENTES
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrar_empresa`(
+Nombre varchar(60),
+  Dependencia varchar(60),
+  Area varchar(60),
+  Direccion varchar(100),
+  Telefonos varchar(100),
+  Ase_Externo varchar(100),
+  Puesto varchar(50),
+  Email varchar(60),
+  Tel_contacto int(15),
+  Horario_Contacto varchar(50),
+  Fecha_ini date,
+  Fecha_fin date,
+  Id_alumno varchar(15)
+)
+BEGIN
+insert into `empresa`(`Nombre`, `Dependencia`, `Area`, `Direccion`, `Telefonos`, `Ase_Externo`, `Puesto`, `E-mail`, `Tel_contacto`, `Horario_Contacto`, `Fecha_ini`, `Fecha_fin`, `Id_alumno`) value(Nombre, Dependencia, Area, Direccion, Telefonos, Ase_Externo, Puesto, Email, Tel_contacto, Horario_Contacto, Fecha_ini, Fecha_fin, Id_alumno);
+END$$
+DELIMITER ;
+
+-- PROCEDIMIENTO ALMACENADO PARA VERIFICAR SI LA CUENTA DEL DOCENTE EXISTE
+DELIMITER $
+CREATE DEFINER=`root`@`localhost` PROCEDURE `verificarEmpresa`(IN `em_nom` VARCHAR(255))
+    NO SQL
+SELECT Nombre FROM empresa  WHERE Nombre=em_nom$
 DELIMITER ;
