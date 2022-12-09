@@ -30,15 +30,16 @@ if ($stmt = $con->prepare('SELECT correo, nombre, contraseña FROM docente WHERE
                         session_regenerate_id();
                         $_SESSION['SesionIniciada'] = TRUE;
                         $_SESSION['nombre'] = $nombre;
+                        $_SESSION['correo'] = $correo;
                         //REDIRECCIONA A LA PAGINA DE INICIO
-                        header('Location: ../inicio.php');
+                        echo "success";
                 } else {
                         // CONTRASEÑA INCORRECTA
-                        echo 'Contraseña incorrecta!';
+                        echo "error-password";
                 }
         } else {
                 // EL USUARIO NO EXISTE
-                echo 'Este usuario no existe!';
+                echo "error-user";
         }
 
         // CIERRA LA CONEXION CON LA BASE DE DATOS 

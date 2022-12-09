@@ -17,23 +17,36 @@ if (isset($_SESSION['SesionIniciada'])) {
     <meta name="key" content="BITACORA, REDICENCIAS, ITSPR, INSTITUTO TECNOLOGICO SUPERIOR DE POZA RICA">
     <META NAME="AUTHOR" CONTENT="Omar Nayef Pineda Blanco">
     <title>BITACORA ITSPR</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="IMAGENES_BD/LOGO_ITSPR.jpg" type="image/x-icon">
-    <img src="IMAGENES_BD/Tira_logo.jpg" width="1400" height="200">
+    <link rel="stylesheet" href="css/login-styles.css">
+    <link rel="shortcut icon" href="assets/LOGO_ITSPR.jpg" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
     <header>
-        <nav>
-            <a href="index.php">Inicio</a>
-            <a href="registro.php">REGISTRARSE</a>
-            <a href="login.php">INICIAR SESION</a>
-        </nav>
+        <div class="tira-header">
+            <img class="tira-header__img" src="assets/Tira_logo.jpg">
+        </div>
+        <div id="nav-sup" class="navegacion">
+            <ul class="navegacion__navegacion-list navegacion__menu">
+                <li>
+                    <a href="index.php">INICIO</a>
+                </li>
+                <li>
+                    <a href="registro.php">REGISTRARSE</a>
+                </li>
+                <li>
+                    <a href="login.php" class="active">INICIAR SESION</a>
+                </li>
+            </ul>
+        </div>
     </header>
-    <form class="LOGIN" method="post" action="includes/login-d.php">
+    <form id="formLogin" class="form-login" method="post">
         <h1>INICIA SESION</h1>
         <div class="contenedor1">
-            <nav>
+            <nav class="switch-cuenta">
                 <a href="login.php">ALUMNO</a>
                 <a href="#">DOCENTE</a>
             </nav>
@@ -53,3 +66,4 @@ if (isset($_SESSION['SesionIniciada'])) {
 </body>
 
 </html>
+<script src="js/login-d.js"></script>

@@ -32,18 +32,14 @@ if ($stmt = $con->prepare('SELECT num_control, nombre, contraseña FROM alumno W
                         $_SESSION['nombre'] = $nombre;
                         $_SESSION['no_control'] = $no_control;
                         //REDIRECCIONA A LA PAGINA DE INICIO
-                        header('Location: ../inicio.php');
+                        echo "success";
                 } else {
                         // CONTRASEÑA INCORRECTA
-
-                        echo '<script type ="text/JavaScript">';
-                        echo 'alert("Contraseña incorrecta")';
-                        echo '</script>';
-                        header('Location: ../login.php');
+                        echo "error-password";
                 }
         } else {
                 // EL USUARIO NO EXISTE
-                echo 'alert("Este usuario no existe")';
+                echo "error-user";
         }
 
         // CIERRA LA CONEXION CON LA BASE DE DATOS 

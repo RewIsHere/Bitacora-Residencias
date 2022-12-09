@@ -1,16 +1,17 @@
 <?php
-// include database connection file
 require_once '../services/ConexionBD.php';
-// Now we check if the data was submitted, isset() function will check if the data exists.
+// PREGUNTAMOS SI ALGUNO DE LOS CAMPOS DEL FORMULARIO DE REGISTRO HA SIDO ESTABLECIDO
 if (!isset($_POST['nombre'], $_POST['num_control'], $_POST['contraseña'], $_POST['correo'])) {
-    // Could not get the data that should have been sent.
+    // EN CASO DE ESTAR VACIO ALGUNO, NOS MARCARA ERROR
     exit('Please complete the registration form!');
 }
-// Make sure the submitted registration values are not empty.
+// PREGUNTAMOS SI ALGUN CAMPO ESTA VACIO
 if (empty($_POST['nombre']) || empty($_POST['num_control']) || empty($_POST['contraseña']) || empty($_POST['correo'])) {
-    // One or more values are empty.
+    // NUEVAMENTE NOS MARCARA ERROR EN CASO DE QUE LO ESTE
     exit('Please complete the registration form');
 }
+
+// DEFINIMOS VARIABLES PARA OBTENER LOS CAMPOS DEL FORMULARIO
 
 $nombre = $_POST['nombre'];
 $apellido_pat = $_POST['apellido_pat'];
@@ -22,33 +23,32 @@ $contra = $_POST['contraseña'];
 $tel = $_POST['tel'];
 $sem_cursado = $_POST['semestre_cursado'];
 $mat_pend = $_POST['mat_pend'];
-// Call the store procedure for insertion
 
-// We need to check if the account with that username exists.
+// LLAMAMOS A UN PROCEDIMIENTO ALMACENADO PARA VERIFICAR SI LA CUENTA EXISTE
 if ($stmt = $con->prepare("call verificarCuenta('$num_control')")) {
-    // Bind parameters (s = string, i = int, b = blob, etc), hash the password using the PHP password_hash function.
     $stmt->execute();
     $stmt->store_result();
-    // Store the result so we can check if the account exists in the database.
+    // SI DA MAYOR A 1 SIGNIFICA QUE EL PROCEDIMIENTO ALMACENADO ENCONTRO A UN USUARIO CON ESE NOMBRE
     if ($stmt->num_rows > 0) {
-        // Username already exists
-        echo $stmt->num_rows;
-        echo 'Username exists, please choose another!';
+        // SI EXISTE LA CUENTA NOS MARCARA ERROR
+        echo "error";
     } else {
         $stmt->close();
-        // Username doesnt exists, insert new account
+        // LA CUENTA NO EXISTE , LLAMAMOS AL PROCEDIMIENTO ALMACENADO PARA CREAR LA CUENTA
         if ($stmt = $con->prepare("call registar_alumno('$num_control','$nombre','$apellido_pat','$apellido_mat','$carrera','$sem_cursado','$mat_pend','$tel','$correo','$contra')")) {
-            // We do not want to expose passwords in our database, so hash the password and use password_verify when a user logs in.
             $stmt->execute();
-            echo 'You have successfully registered, you can now login!';
+            echo "success";
         } else {
-            // Something is wrong with the sql statement, check to make sure accounts table exists with all 3 fields.
-            echo 'Could not prepare statement!';
+            // EN CASO DE ERROR NOS LO MARCARA
+            echo "fatal_error";
         }
     }
+    // CIERRA EL QUERY
+
     $stmt->close();
 } else {
-    // Something is wrong with the sql statement, check to make sure accounts table exists with all 3 fields.
-    echo 'Could not prepare statement!';
+    // EN CASO DE ERROR NOS LO MARCARA
+    echo "fatal_error";
 }
+// CIERRA LA CONEXION
 $con->close();

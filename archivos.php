@@ -1,108 +1,258 @@
-<?php session_start() ?>
+<?php
+// We need to use sessions, so you should always start sessions using the below code.
+
+require_once 'services/ConexionBD.php';
+
+session_start();
+// PREGUNTA SI YA HEMOS INICIADO SESION EN CASO DE QUE NO, NOS REDIRECCIONA AL INDEX
+if (!isset($_SESSION['SesionIniciada'])) {
+    header('Location: index.php');
+    exit;
+}
+$uname = $_SESSION['correo'];
+
+// PREGUNTA SI EL USUARIO QUE HA INICIADO SESION ES UN DOCENTE
+
+if ($stmt = $con->prepare('SELECT * FROM docente WHERE correo = ?')) {
+    $stmt->bind_param('s', $uname);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows == 0) {
+        header('Location: inicio.php');
+    }
+
+    // CIERRA LA CONEXION CON LA BASE DE DATOS 
+    $stmt->close();
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="BITACORA  RESIDENCIAS ITSPR">
-    <meta name="key" content="BITACORA, REDICENCIAS, ITSPR, INSTITUTO TECNOLOGICO SUPERIOR DE POZA RICA">
-    <META NAME="AUTHOR" CONTENT="Omar Nayef Pineda Blanco">
-    <title>BITACORA ITSPR</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="assets/LOGO_ITSPR.jpg" type="image/x-icon">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <!--  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css"> -->
-
-    <!-- Fonts -->
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Abel|Lato|Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/sport-store.css">
-
-    <script defer src="https://use.fontawesome.com/releases/v5.8.2/js/all.js" integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH" crossorigin="anonymous"></script>
-    <!-- Bootstrap -->
-    <link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
-
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
-
-
-
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here" />
+    <link href="css/archivos-styles.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Title</title>
 </head>
 
 <body>
-    <img src="assets/Tira_logo.jpg" width="1400" height="200">
-    <img src="assets/LOGO_ITSPR.jpg" width="100">
     <header>
-
-
-        <nav class="nav-supe">
-            <a href="index.php" class="input-nav-supe">Inicio</a>
-            <a href="registro.php" class="input-nav-supe">REGISTRARSE</a>
-            <a href="login.php" class="input-nav-supe">INICIAR SESION</a>
-        </nav>
-
-
+        <div class="tira-header">
+            <img class="tira-header__img" src="assets/Tira_logo.jpg">
+        </div>
+        <div id="nav-sup" class="navegacion">
+            <ul class="navegacion__navegacion-list navegacion__menu">
+                <li>
+                    <a href="index.php" class="active">INICIO</a>
+                </li>
+                <li>
+                    <a href="registro.php">REGISTRARSE</a>
+                </li>
+                <li>
+                    <a href="login.php">INICIAR SESION</a>
+                </li>
+            </ul>
+        </div>
     </header>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10 offset-1">
-                <div style="height:50px;"></div>
-
-                <span style="font-size:25px; color:blue">
-                    <center><strong>PHP/MySQLi CRUD Modal using Bootstrap</strong></center>
-                </span>
-
-
-                <div class="col-md-12 text-center mb-5">
-                    <form action="search.php" method="post" class="form-inline">
-                        <input type="text" placeholder="Search For Tasks" name="search" class="form-control col-12">
-                    </form>
-                </div>
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                        <th>Num. Control</th>
-                        <th>Nombre</th>
-                        <th>Empresa</th>
-                        <th>Accion</th>
-                    </thead>
-                    <tbody>
-                        <?php
-                        include('services/ConexionBD.php');
-
-                        $query = mysqli_query($con, "SELECT alumno.num_control  AS alum_nc, alumno.nombre  AS alum_nom, alumno.apellido_pat  AS alum_app, alumno.apellido_mat  AS 
-                        alum_apm, empresa.nombre  AS empre_nom FROM alumno INNER JOIN empresa ON alumno.num_control = empresa.Id_alumno");
-                        while ($row = mysqli_fetch_array($query)) {
-                        ?>
-                            <tr>
-                                <td><?php echo ucwords($row['alum_nc']); ?></td>
-                                <td><?php echo ucwords($row['alum_nom']); ?></td>
-                                <td><?php echo $row['empre_nom']; ?></td>
-                                <td>
-                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit<?php echo $row['alum_nc']; ?>">
-                                        Ver
-                                    </button>
-
-                                    <?php include('includes/verArchivos.php'); ?>
-                                </td>
-                            </tr>
-                        <?php
-                        }
-
-                        ?>
-                    </tbody>
-                </table>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.min.js"></script>
 </body>
 
+</html>
 
+
+<?php
+
+require_once 'services/ConexionBD.php';
+
+
+
+// PREGUNTA SI HEMOS APLICADO ALGUN FILTRO 
+if (!isset($_POST['buscadepartamento'])) {
+    $_POST['buscadepartamento'] = '';
+}
+
+
+?>
+
+
+
+
+<div class="container mt-5">
+    <div class="col-12">
+
+
+
+        <div class="row">
+            <div class="col-12 grid-margin">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="btn-group w-100 mb-2">
+                            <a href="inicio-d.php" class="btn btn-success">Volver al inicio</a>
+
+                        </div>
+                        <h4 class="card-title">Buscador</h4>
+
+                        <div class="col-md-12 text-center mb-5">
+                            <form action="search.php" method="post" class="form-inline">
+                                <input type="text" placeholder="Buscar por Num. Control" name="search" class="form-control col-12">
+                                <input type="submit" class="btn " value="Buscar" style="margin-top: 38px; background-color: purple; color: white;">
+                            </form>
+                        </div>
+                        <form id="form2" name="form2" method="POST" action="archivos.php">
+                            <div class="col-12 row">
+
+
+
+                                <h4 class="card-title">Filtro de búsqueda</h4>
+
+                                <div class="col-11">
+
+                                    <table class="table">
+                                        <thead>
+                                            <tr class="filters">
+                                                <th>
+                                                    Tipo de Documento
+                                                    <select id="assigned-tutor-filter" id="buscadepartamento" name="buscadepartamento" class="form-control mt-2" style="border: #bababa 1px solid; color:#000000;">
+                                                        <?php if ($_POST["buscadepartamento"] != '') { ?>
+                                                            <option value="<?php echo $_POST["buscadepartamento"]; ?>">
+                                                                <?php
+                                                                // ESTABLECE EL TEXTO DEPENDIENDO DE LA OPCION QUE TENGAMOS SELECCIONADA
+                                                                if ($_POST["buscadepartamento"] == 'Solicitus_resi') {
+                                                                    echo 'Solicitud Residencia';
+                                                                }
+                                                                if ($_POST["buscadepartamento"] == 'Carta_acep') {
+                                                                    echo 'Carta de Aceptacion';
+                                                                }
+                                                                if ($_POST["buscadepartamento"] == 'Reporte_pre') {
+                                                                    echo 'Reporte preliminar';
+                                                                }
+                                                                if ($_POST["buscadepartamento"] == 'Reporte_final') {
+                                                                    echo 'Reporte final';
+                                                                }
+                                                                if ($_POST["buscadepartamento"] == 'Cumpl_resi_doce') {
+                                                                    echo 'Cumplimiento residencias docente';
+                                                                }
+                                                                if ($_POST["buscadepartamento"] == 'Eva_segui') {
+                                                                    echo 'Evaluacion Seguimiento';
+                                                                }
+                                                                if ($_POST["buscadepartamento"] == 'Eva_repor') {
+                                                                    echo 'Evaluacion Reporte';
+                                                                }
+                                                                if ($_POST["buscadepartamento"] == 'Car_termin_resi') {
+                                                                    echo 'Carta terminacion de residencias';
+                                                                }
+                                                                if ($_POST["buscadepartamento"] == 'Liberacion_repor') {
+                                                                    echo 'Liberacion reporte';
+                                                                }
+                                                                ?>
+                                                            </option>
+
+                                                        <?php } ?>
+                                                        <option value="">Todos</option>
+                                                        <option value="Solicitus_resi">Solicitud Residencia</option>
+                                                        <option value="Carta_acep">Carta de Aceptacion</option>
+                                                        <option value="Reporte_pre">Reporte preliminar</option>
+                                                        <option value="Reporte_final">Reporte final</option>
+                                                        <option value="Cumpl_resi_doce">Cumplimiento residencias docente</option>
+                                                        <option value="Eva_segui">Evaluacion Seguimiento</option>
+                                                        <option value="Eva_repor">Evaluacion Reporte</option>
+                                                        <option value="Car_termin_resi">Carta terminacion de residencias</option>
+                                                        <option value="Liberacion_repor">Liberacion reporte</option>
+                                                    </select>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="col-1">
+                                    <input type="submit" class="btn " value="Ver" style="margin-top: 38px; background-color: purple; color: white;">
+                                </div>
+                            </div>
+
+
+                            <?php
+                            /*FILTRO de busqueda////////////////////////////////////////////*/
+
+
+                            // SI NO HAY NINGUN FILTRO ESTABLECIDO LISTARA LOS ALUMNOS CON TODOS SUS ARCHIVOS
+                            if ($_POST['buscadepartamento'] == '') {
+                                $query = "SELECT alumno.num_control  AS alum_nc, alumno.nombre  AS alum_nom, alumno.apellido_pat  AS alum_app, alumno.apellido_mat  AS 
+                                alum_apm, empresa.nombre  AS empre_nom, docs_alumno.Id_alumno AS docs_idalum FROM alumno INNER JOIN empresa ON alumno.num_control = empresa.Id_alumno INNER JOIN docs_alumno ON empresa.ID_alumno = docs_alumno.Id_alumno";
+                            } else {
+
+
+
+                                // SI EL FILTRO ES DIFERENTE DE NULO LISTARA EN BASE AL FILTRO SELECCIONADO
+                                if ($_POST["buscadepartamento"] != '') {
+                                    $query = "SELECT alumno.num_control  AS alum_nc, alumno.nombre  AS alum_nom, alumno.apellido_pat  AS alum_app, alumno.apellido_mat  AS 
+                                    alum_apm, empresa.nombre  AS empre_nom, docs_alumno.Id_alumno AS docs_idalum FROM alumno INNER JOIN empresa ON alumno.num_control = empresa.Id_alumno INNER JOIN docs_alumno ON empresa.ID_alumno = docs_alumno.Id_alumno";
+                                }
+                            }
+
+                            // EJECUTAMOS EL QUERY
+
+                            $sql = $con->query($query);
+
+                            $numeroSql = mysqli_num_rows($sql);
+
+                            ?>
+                            <p style="font-weight: bold; color:purple;"><i class="mdi mdi-file-document"></i> <?php echo $numeroSql; ?> Resultados encontrados</p>
+                        </form>
+
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr style="background-color:purple; color:#FFFFFF;">
+                                        <th>Num. Control</th>
+                                        <th>Nombre</th>
+                                        <th>Empresa</th>
+                                        <th>Accion</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    // HACEMOS UN BUCLE PARA RELLENAR LA TABLA EN BASE AL QUERY ANTERIOR
+                                    while ($rowSql = $sql->fetch_assoc()) {   ?>
+
+                                        <tr>
+                                            <td style="text-align: center;"><?php echo $rowSql["alum_nc"]; ?></td>
+                                            <td style="text-align: center;"><?php echo $rowSql["alum_nom"]; ?></td>
+                                            <td style="text-align: center;"><?php echo $rowSql["empre_nom"]; ?></td>
+                                            <?php
+                                            if ($_POST["buscadepartamento"] != '') {
+                                                $archivoquery = "SELECT * FROM docs_alumno WHERE Id_alumno ='" . $rowSql["alum_nc"] . "' ";
+                                                $archivosql = $con->query($archivoquery);
+                                                $archivorow = $archivosql->fetch_assoc();
+
+                                                $tab4 = '<a href="archivos/' . $archivorow[$_POST["buscadepartamento"]] . '" class="btn btn-info" role="button">Abrir</a>                                                ';
+                                            } else {
+                                                $tab4 = "<button type='button' class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#edit" . $rowSql['alum_nc'] .  "'>Ver </button>";
+                                            } ?>
+                                            <td style="text-align: center;"><?php echo $tab4 ?>
+                                                <?php include('includes/verArchivos.php'); ?>
+                                            </td>
+                                        </tr>
+
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
 
 </html>

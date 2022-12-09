@@ -1,10 +1,10 @@
 <?php
-// include database connection file
+// VINCULACION CON LA BASE DE DATOS
 require_once '../services/ConexionBD.php';
-// Now we check if the data was submitted, isset() function will check if the data exists.
-
+// INICIAMOS EL PROCESO DE SESION
 session_start();
 
+// CREAMOS VARIABLES QUE EQUIVALEN A CADA CAMPO DEL FORMULARIO
 $Nombre = $_POST['Nombre'];
 $Dependencia = $_POST['Dependencia'];
 $Area = $_POST['Area'];
@@ -18,33 +18,30 @@ $Horario_Contacto = $_POST['Horario_Contacto'];
 $Fecha_ini = $_POST['Fecha_ini'];
 $Fecha_fin = $_POST['Fecha_fin'];
 $no_control = $_SESSION['no_control'];
-// Call the store procedure for insertion
 
-// We need to check if the account with that username exists.
+// PREPARA EL QUERY PARA LLAMAR AL PROCEDIMIENTO ALMACENADO DE VERIFICAR EMPRESA
 if ($stmt = $con->prepare("call verificarEmpresa('$Nombre')")) {
-    // Bind parameters (s = string, i = int, b = blob, etc), hash the password using the PHP password_hash function.
     $stmt->execute();
     $stmt->store_result();
-    // Store the result so we can check if the account exists in the database.
+    // PREGUNTA SI EL QUERY QUE LLAMAMOS ANTERIORMENTE TIENE UNA COLUMNA CON EL NOMBRE DE LA EMPRESA PUESTO EN EL FORMULARIO
     if ($stmt->num_rows > 0) {
-        // Username already exists
-        echo $stmt->num_rows;
-        echo 'La empresa ya existe!';
+        // EN CASO DE QUE EXISTA MARCARA ERROR
+        echo "error";
     } else {
         $stmt->close();
-        // Username doesnt exists, insert new account
+        // LA EMPRESA NO EXISTE, POR LO TANTO PREPARAMOS OTRO PROCEDIMIENTO ALMACENADO PARA INGRESAR UN REGISTRO A LA TABLA EMPRESA
         if ($stmt = $con->prepare("call registrar_empresa('$Nombre','$Dependencia','$Area','$Direccion','$Telefonos','$Ase_Externo','$Puesto','$email','$Tel_contacto','$Horario_Contacto','$Fecha_ini','$Fecha_fin','$no_control')")) {
-            // We do not want to expose passwords in our database, so hash the password and use password_verify when a user logs in.
             $stmt->execute();
-            echo 'Se ha completado el perfil correctamente';
+            echo "success";
         } else {
-            // Something is wrong with the sql statement, check to make sure accounts table exists with all 3 fields.
-            echo 'Could not prepare statement!';
+            // EN CASO DE ALGUN PROBLEMA NOS MARCARA ERROR
+            echo "fatal-error";
         }
     }
     $stmt->close();
 } else {
-    // Something is wrong with the sql statement, check to make sure accounts table exists with all 3 fields.
-    echo 'Could not prepare statement!';
+    // EN CASO DE ALGUN PROBLEMA NOS MARCARA ERROR
+    echo "fatal-error";
 }
+// CIERRA LA CONEXION
 $con->close();

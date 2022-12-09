@@ -1,5 +1,6 @@
 <?php
+// DESTRUYE O CIERRA LA SESION
 session_start();
 session_destroy();
-// Redirect to the login page:
+// REDIRECCIONA A LA PAGINA INDEX
 header('Location: index.php');
