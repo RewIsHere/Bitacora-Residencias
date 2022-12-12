@@ -1,10 +1,24 @@
 <?php
-// We need to use sessions, so you should always start sessions using the below code.
+require_once 'services/ConexionBD.php';
+
 session_start();
-// If the user is not logged in redirect to the login page...
+$uname = $_SESSION['correo'];
+
 if (isset($_SESSION['SesionIniciada'])) {
-    header('Location: inicio.php');
-    exit;
+    if ($stmt = $con->prepare('SELECT * FROM docente WHERE correo = ?')) {
+        $stmt->bind_param('s', $uname);
+        $stmt->execute();
+        $stmt->store_result();
+
+        if ($stmt->num_rows == 0) {
+            header('Location: inicio.php');
+        } else {
+            header('Location: inicio-d.php');
+        }
+
+        // CIERRA LA CONEXION CON LA BASE DE DATOS 
+        $stmt->close();
+    }
 }
 ?>
 <!DOCTYPE html>

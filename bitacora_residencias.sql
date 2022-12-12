@@ -30,7 +30,7 @@ CREATE TABLE `docente` (
   `apellido_mat` varchar(40) NOT NULL,
   `carrera` varchar(60) NOT NULL,
   `tel` int(11) NOT NULL,
-  `correo` varchar(60) NOT NULL,
+  `correo` varchar(60) NOT NULL UNIQUE,
   `contraseña` varchar(20) NOT NULL
 );
 
@@ -63,16 +63,16 @@ INSERT INTO `alumno` (`num_control`, `nombre`, `apellido_pat`, `apellido_mat`, `
 
 CREATE TABLE `docs_alumno` (
   `Id_docs_a` int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  `Solicitus_resi` varchar(200) NOT NULL,
-  `Carta_acep` varchar(200) NOT NULL,
-  `Reporte_pre` varchar(200) NOT NULL,
-  `Reporte_final` varchar(200) NOT NULL,
-  `Cumpl_resi_doce` varchar(200) NOT NULL,
-  `Eva_segui` varchar(200) NOT NULL,
-  `Eva_repor` varchar(200) NOT NULL,
-  `Car_termin_resi` varchar(200) NOT NULL,
-  `Liberacion_repor` varchar(200) NOT NULL,
-  `Id_alumno` varchar(15) NOT NULL,
+  `Solicitud_resi` varchar(200),
+  `Carta_acep` varchar(200),
+  `Reporte_pre` varchar(200),
+  `Reporte_final` varchar(200),
+  `Cumpl_resi_doce` varchar(200),
+  `Eva_segui` varchar(200),
+  `Eva_repor` varchar(200),
+  `Car_termin_resi` varchar(200),
+  `Liberacion_repor` varchar(200),
+  `Id_alumno` varchar(15) NOT NULL UNIQUE,
   FOREIGN KEY (`Id_alumno`)
   REFERENCES `alumno`(`num_control`) 
 );
@@ -102,6 +102,18 @@ CREATE TABLE `empresa` (
   `Id_alumno` varchar(15) NOT NULL,
   FOREIGN KEY (`Id_alumno`)
   REFERENCES `alumno`(`num_control`) 
+);
+
+CREATE TABLE `comentario` (
+  `Id_Comentario` int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `Comentario` varchar(60) NOT NULL,
+  `Fecha` date NOT NULL,
+  `Id_alumno` varchar(15) NOT NULL,
+  `Id_docente` int(11) NOT NULL,
+  FOREIGN KEY (`Id_alumno`)
+  REFERENCES `alumno`(`num_control`),
+  FOREIGN KEY (`Id_docente`)
+  REFERENCES `docente`(`Id_docente`)
 );
 
 -- PROCEDIMIENTO ALMACENADO PARA REGISTRAR A ALUMNOS
@@ -180,4 +192,24 @@ DELIMITER $
 CREATE DEFINER=`root`@`localhost` PROCEDURE `verificarEmpresa`(IN `em_nom` VARCHAR(255))
     NO SQL
 SELECT Nombre FROM empresa  WHERE Nombre=em_nom$
+DELIMITER ;
+
+-- PROCEDIMIENTO ALMACENADO PARA REGISTRAR A DOCENTES
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `agregar_comentario`(
+Comentario varchar(60),
+  Fecha date,
+  Id_alumno varchar(15),
+  Id_docente int(11)
+)
+BEGIN
+insert into `comentario`(`Comentario`, `Fecha`, `Id_alumno`, `Id_docente`) value(Comentario, Fecha, Id_alumno, Id_docente);
+END$$
+DELIMITER ;
+
+-- PROCEDIMIENTO ALMACENADO PARA VERIFICAR SI LA CUENTA DEL DOCENTE EXISTE
+DELIMITER $
+CREATE DEFINER=`root`@`localhost` PROCEDURE `verificarComentario`(IN `no_control` VARCHAR(255))
+    NO SQL
+SELECT Id_alumno FROM comentario  WHERE Id_alumno=no_control$
 DELIMITER ;

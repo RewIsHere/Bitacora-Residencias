@@ -37,6 +37,8 @@ if ($stmt = $con->prepare('SELECT * FROM docente WHERE correo = ?')) {
     <link href="css/archivos-styles.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <title>Title</title>
 </head>
 
@@ -124,7 +126,7 @@ if (!isset($_POST['buscadepartamento'])) {
                                                             <option value="<?php echo $_POST["buscadepartamento"]; ?>">
                                                                 <?php
                                                                 // ESTABLECE EL TEXTO DEPENDIENDO DE LA OPCION QUE TENGAMOS SELECCIONADA
-                                                                if ($_POST["buscadepartamento"] == 'Solicitus_resi') {
+                                                                if ($_POST["buscadepartamento"] == 'Solicitud_resi') {
                                                                     echo 'Solicitud Residencia';
                                                                 }
                                                                 if ($_POST["buscadepartamento"] == 'Carta_acep') {
@@ -156,7 +158,7 @@ if (!isset($_POST['buscadepartamento'])) {
 
                                                         <?php } ?>
                                                         <option value="">Todos</option>
-                                                        <option value="Solicitus_resi">Solicitud Residencia</option>
+                                                        <option value="Solicitud_resi">Solicitud Residencia</option>
                                                         <option value="Carta_acep">Carta de Aceptacion</option>
                                                         <option value="Reporte_pre">Reporte preliminar</option>
                                                         <option value="Reporte_final">Reporte final</option>
@@ -231,8 +233,11 @@ if (!isset($_POST['buscadepartamento'])) {
                                                 $archivoquery = "SELECT * FROM docs_alumno WHERE Id_alumno ='" . $rowSql["alum_nc"] . "' ";
                                                 $archivosql = $con->query($archivoquery);
                                                 $archivorow = $archivosql->fetch_assoc();
-
-                                                $tab4 = '<a href="archivos/' . $archivorow[$_POST["buscadepartamento"]] . '" class="btn btn-info" role="button">Abrir</a>                                                ';
+                                                if ($archivorow[$_POST["buscadepartamento"]] == null) {
+                                                    $tab4 = 'NO SE HA SUBIDO AUN';
+                                                } else {
+                                                    $tab4 = '<a href="archivos/' . $archivorow[$_POST["buscadepartamento"]] . '" class="btn btn-info" role="button">Abrir</a>                                                ';
+                                                }
                                             } else {
                                                 $tab4 = "<button type='button' class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#edit" . $rowSql['alum_nc'] .  "'>Ver </button>";
                                             } ?>
