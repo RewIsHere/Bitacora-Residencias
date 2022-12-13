@@ -17,7 +17,21 @@ $('#form-subir').on('submit', function (e) {
         /(\.pdf)$/i;
 
     if (!allowedExtensions.exec(filePath)) {
-        alert('Invalid file type');
+        $(document).ready(function () {
+            Swal.fire({
+                toast: true,
+                icon: 'error',
+                title: 'No se pueden subir archivos con otras extensiones',
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+        });
         fileInput.value = '';
         return false;
     }
@@ -34,11 +48,40 @@ $('#form-subir').on('submit', function (e) {
             //document.getElementById("resultado_busqueda" ").innerHTML= '<img src=*img/load.gif" style="width:120px,">
         },
         success: function (response) {
+            $(document).ready(function () {
+                Swal.fire({
+                    toast: true,
+                    icon: 'success',
+                    title: 'Se ha subido el documento correctamente',
+                    position: 'top',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+            });
             document.getElementById(tipo_doc).innerHTML = response;
 
         },
         error: function (response, error) {
-            document.getElementById("Solicitud_res").innerHTML = error;
+            $(document).ready(function () {
+                Swal.fire({
+                    toast: true,
+                    icon: 'error',
+                    title: error,
+                    position: 'top',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+            });
         }
     });
 });
