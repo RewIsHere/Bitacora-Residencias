@@ -149,65 +149,9 @@
                                 <?php echo $var9 ?>
                             </div>
                         </div>
-
-                        <form action="includes/comentarios.php" id="form-comen">
-                            <div class="contenedor_1">
-                                <label for="mensaje">Comentarios</label>
-                                <textarea required placeholder="Escribir comentario" class="form-control" name="mensaje" id="mensaje" cols="30" rows="5"></textarea>
-                                <input class="form-control" type="hidden" name="num_control" id="num_control" value="<?php echo $rowSql['alum_nc'] ?>">
-                            </div>
-                            <div class="col-1">
-                                <button type="button" class="btn btn-primary" id="btnUpdateSubmit" onclick="update()">Update</button>
-                            </div>
-                        </form>
-                        <script>
-                            function update() {
-                                $("#btnUpdateSubmit").on("click", function() {
-                                    let tipo_doc = document.getElementById("mensaje").value
-                                    let num_control = document.getElementById("num_control").value
-                                    var $this = $(this); //submit button selector using ID
-                                    var $caption = $this.html(); // We store the html content of the submit button
-                                    var form = "#form-comen"; //defined the #form ID
-                                    var formData = {
-                                        "mensaje": mensaje,
-                                        "num_control": num_control
-                                    } //serialize the form into array
-                                    var route = $(form).attr('action'); //get the route using attribute action
-
-                                    // Ajax config
-                                    $.ajax({
-                                        type: "POST", //we are using POST method to submit the data to the server side
-                                        url: route, // get the route value
-                                        data: formData, // our serialized array data for server side
-                                        beforeSend: function() { //We add this before send to disable the button once we submit it so that we prevent the multiple click
-                                            $this.attr('disabled', true).html("Processing...");
-                                        },
-                                        success: function(response) { //once the request successfully process to the server side it will return result here
-                                            $this.attr('disabled', false).html($caption);
-
-
-
-                                            // We will display the result using alert
-                                            alert(response);
-
-                                            // Reset form
-                                            resetForm(form);
-
-                                            // Close modal
-                                        },
-                                        error: function(XMLHttpRequest, textStatus, errorThrown) {
-                                            // You can put something here if there is an error from submitted request
-                                        }
-                                    });
-                                });
-                            }
-                        </script>
-
-
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- /.modal -->
-<input type="hidden" name="nc" value="<?php echo $rowSql['alum_nc'] ?>">
