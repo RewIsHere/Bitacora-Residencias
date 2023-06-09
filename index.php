@@ -20,7 +20,7 @@
                     <a href="index.php" class="active">INICIO</a>
                 </li>
                 <li>
-                    <a href="registro.php">REGISTRARSE</a>
+                    <a href="registro.php">REGISTRO</a>
                 </li>
                 <li>
                     <a href="login.php">INICIAR SESION</a>
@@ -28,12 +28,19 @@
             </ul>
         </div>
         <section class="textos-header">
-            <h1><span>SISTEMA DE KARDEX</span></h1>
+            <h1><span>JEFATURA DE SISTEMAS PARA ALUMNOS</span></h1>
         </section>
     </header>
-
-    <img src="assets/paisaje 2.jpg" width="700" height="480">
-
+    <div class="imgDiv" style="
+    display: flex !important;
+    justify-content: center !important;;
+    height: 300px !important;
+">
+        <img src="assets/FONDO.jpg" alt="" style="
+    width: 907px;
+    height: 630px;
+">
+    </div>
 </body>
 
 </html>

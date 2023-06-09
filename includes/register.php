@@ -19,7 +19,7 @@ $apellido_mat = $_POST['apellido_mat'];
 $num_control = $_POST['num_control'];
 $correo = $_POST['correo'];
 $contra = $_POST['contraseña'];
-$tel = $_POST['tel'];
+$especialidad = $_POST['especialidad'];
 $sem_cursado = $_POST['semestre_cursado'];
 
 if ($stmt = $con->prepare("call verificarCuenta('$num_control')")) {
@@ -61,7 +61,7 @@ if ($stmt = $con->prepare("call verificarCuenta('$num_control')")) {
                 }
             }
         }
-        if ($stmt = $con->prepare("call registar_alumno('$num_control','$nombre','$apellido_pat','$apellido_mat','$nuevo_nombreArchivo','$sem_cursado','$tel','$correo','$contra', 0)")) {
+        if ($stmt = $con->prepare("call registar_alumno('$num_control','$nombre','$apellido_pat','$apellido_mat','$nuevo_nombreArchivo','$sem_cursado','$especialidad','$correo','$contra', 0)")) {
             $stmt->execute();
             echo "success";
         } else {

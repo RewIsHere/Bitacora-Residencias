@@ -101,12 +101,6 @@ if (!isset($_POST['buscadepartamento'])) {
                         </div>
                         <h4 class="card-title">Buscador</h4>
 
-                        <div class="col-md-12 text-center mb-5">
-                            <form action="search.php" method="post" class="form-inline">
-                                <input type="text" placeholder="Buscar por Num. Control" name="search" class="form-control col-12">
-                                <input type="submit" class="btn " value="Buscar" style="margin-top: 38px; background-color: purple; color: white;">
-                            </form>
-                        </div>
                         <form id="form2" name="form2" method="POST" action="archivos.php">
                             <div class="col-12 row">
 
@@ -126,47 +120,23 @@ if (!isset($_POST['buscadepartamento'])) {
                                                             <option value="<?php echo $_POST["buscadepartamento"]; ?>">
                                                                 <?php
                                                                 // ESTABLECE EL TEXTO DEPENDIENDO DE LA OPCION QUE TENGAMOS SELECCIONADA
-                                                                if ($_POST["buscadepartamento"] == 'Solicitud_resi') {
+                                                                if ($_POST["buscadepartamento"] == 'Creditos') {
                                                                     echo 'Solicitud Residencia';
                                                                 }
-                                                                if ($_POST["buscadepartamento"] == 'Carta_acep') {
+                                                                if ($_POST["buscadepartamento"] == 'Justificantes') {
                                                                     echo 'Carta de Aceptacion';
                                                                 }
-                                                                if ($_POST["buscadepartamento"] == 'Reporte_pre') {
+                                                                if ($_POST["buscadepartamento"] == 'Altas_y_Bajas') {
                                                                     echo 'Reporte preliminar';
-                                                                }
-                                                                if ($_POST["buscadepartamento"] == 'Reporte_final') {
-                                                                    echo 'Reporte final';
-                                                                }
-                                                                if ($_POST["buscadepartamento"] == 'Cumpl_resi_doce') {
-                                                                    echo 'Cumplimiento residencias docente';
-                                                                }
-                                                                if ($_POST["buscadepartamento"] == 'Eva_segui') {
-                                                                    echo 'Evaluacion Seguimiento';
-                                                                }
-                                                                if ($_POST["buscadepartamento"] == 'Eva_repor') {
-                                                                    echo 'Evaluacion Reporte';
-                                                                }
-                                                                if ($_POST["buscadepartamento"] == 'Car_termin_resi') {
-                                                                    echo 'Carta terminacion de residencias';
-                                                                }
-                                                                if ($_POST["buscadepartamento"] == 'Liberacion_repor') {
-                                                                    echo 'Liberacion reporte';
                                                                 }
                                                                 ?>
                                                             </option>
 
                                                         <?php } ?>
                                                         <option value="">Todos</option>
-                                                        <option value="Solicitud_resi">Solicitud Residencia</option>
-                                                        <option value="Carta_acep">Carta de Aceptacion</option>
-                                                        <option value="Reporte_pre">Reporte preliminar</option>
-                                                        <option value="Reporte_final">Reporte final</option>
-                                                        <option value="Cumpl_resi_doce">Cumplimiento residencias docente</option>
-                                                        <option value="Eva_segui">Evaluacion Seguimiento</option>
-                                                        <option value="Eva_repor">Evaluacion Reporte</option>
-                                                        <option value="Car_termin_resi">Carta terminacion de residencias</option>
-                                                        <option value="Liberacion_repor">Liberacion reporte</option>
+                                                        <option value="Creditos">Liberacion de Creditos</option>
+                                                        <option value="Justificantes">Justificantes</option>
+                                                        <option value="Altas_y_Bajas">Altas y Bajas</option>
                                                     </select>
                                                 </th>
                                             </tr>
@@ -186,7 +156,7 @@ if (!isset($_POST['buscadepartamento'])) {
                             // SI NO HAY NINGUN FILTRO ESTABLECIDO LISTARA LOS ALUMNOS CON TODOS SUS ARCHIVOS
                             if ($_POST['buscadepartamento'] == '') {
                                 $query = "SELECT alumno.num_control  AS alum_nc, alumno.nombre  AS alum_nom, alumno.apellido_pat  AS alum_app, alumno.apellido_mat  AS 
-                                alum_apm, empresa.nombre  AS empre_nom, docs_alumno.Id_alumno AS docs_idalum FROM alumno INNER JOIN empresa ON alumno.num_control = empresa.Id_alumno INNER JOIN docs_alumno ON empresa.ID_alumno = docs_alumno.Id_alumno";
+                                alum_apm,alumno.semestre_cursado AS alum_sem, alumno.especialidad AS alum_espe, docs_alumno.Id_alumno AS docs_idalum FROM alumno INNER JOIN docs_alumno ON alumno.num_control = docs_alumno.Id_alumno";
                             } else {
 
 
@@ -194,7 +164,7 @@ if (!isset($_POST['buscadepartamento'])) {
                                 // SI EL FILTRO ES DIFERENTE DE NULO LISTARA EN BASE AL FILTRO SELECCIONADO
                                 if ($_POST["buscadepartamento"] != '') {
                                     $query = "SELECT alumno.num_control  AS alum_nc, alumno.nombre  AS alum_nom, alumno.apellido_pat  AS alum_app, alumno.apellido_mat  AS 
-                                    alum_apm, empresa.nombre  AS empre_nom, docs_alumno.Id_alumno AS docs_idalum FROM alumno INNER JOIN empresa ON alumno.num_control = empresa.Id_alumno INNER JOIN docs_alumno ON empresa.ID_alumno = docs_alumno.Id_alumno";
+                                alum_apm,alumno.semestre_cursado AS alum_sem, alumno.especialidad AS alum_espe, docs_alumno.Id_alumno AS docs_idalum FROM alumno INNER JOIN docs_alumno ON alumno.num_control = docs_alumno.Id_alumno";
                                 }
                             }
 
@@ -215,7 +185,8 @@ if (!isset($_POST['buscadepartamento'])) {
                                     <tr style="background-color:purple; color:#FFFFFF;">
                                         <th>Num. Control</th>
                                         <th>Nombre</th>
-                                        <th>Empresa</th>
+                                        <th>Semestre</th>
+                                        <th>Especialidad</th>
                                         <th>Accion</th>
                                     </tr>
                                 </thead>
@@ -227,7 +198,8 @@ if (!isset($_POST['buscadepartamento'])) {
                                         <tr>
                                             <td style="text-align: center;"><?php echo $rowSql["alum_nc"]; ?></td>
                                             <td style="text-align: center;"><?php echo $rowSql["alum_nom"]; ?></td>
-                                            <td style="text-align: center;"><?php echo $rowSql["empre_nom"]; ?></td>
+                                            <td style="text-align: center;"><?php echo $rowSql["alum_sem"]; ?></td>
+                                            <td style="text-align: center;"><?php echo $rowSql["alum_espe"]; ?></td>
                                             <?php
                                             if ($_POST["buscadepartamento"] != '') {
                                                 $archivoquery = "SELECT * FROM docs_alumno WHERE Id_alumno ='" . $rowSql["alum_nc"] . "' ";

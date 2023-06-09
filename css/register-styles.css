@@ -41,6 +41,15 @@ body {
     font-family: 'Rubik', sans-serif;
 }
 
+.label-file{
+    color: #000000;
+}
+
+.input-file{
+    color: #000000;
+    padding-left: 30px;
+}
+
 .navegacion a {
     float: left;
     color: var(--white);

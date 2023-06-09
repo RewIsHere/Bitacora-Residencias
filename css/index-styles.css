@@ -29,7 +29,15 @@ body {
     font-family: 'Rubik', sans-serif !important;
 }
 
-/* ESTILOS DEL MENU DE NAVEGACION*/
+
+.img{
+    display: flex !important;
+    justify-content: center !important;
+    background-image: url('assets/fondo.jpg');
+    width: 70% !important;
+    height: 300px !important;
+    background-repeat: n;
+}
 
 .navegacion {
     background-color: var(--colorPrimario);

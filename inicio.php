@@ -62,7 +62,8 @@ $row = $globalsql->fetch_assoc();
         $aprobadosql = $con->query($aprobadoquery);
         if ($aprobadosql) {
             if (mysqli_num_rows($aprobadosql) > 0) {
-                $aprovedTag = '<a href="#" class="btn btn-warning" role="button">SOLICITAR ARCHIVOS</a>';
+                $aprovedTag = '<a href="solicitar_documentos.php" class="btn btn-warning" role="button">SOLICITAR ARCHIVOS</a>
+                <a href="enviar_archivos.php" class="btn btn-warning" role="button">ENVIAR ARCHIVOS</a>';
             } else {
                 $aprovedTag = '<p><i class="fas fa-exclamation-triangle"></i> TU CUENTA AUN NO HA SIDO APROBADA POR EL JEFE DE CARRERA, POR FAVOR PONTE EN CONTACTO EN CASO DE CUALQUIER DUDA</p>';
             }

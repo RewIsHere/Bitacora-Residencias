@@ -8,7 +8,7 @@ $("#formRegistro").on("submit", function (e) {
   let num_control = document.getElementById("num_control").value;
   let correo = document.getElementById("correo").value;
   let contraseña = document.getElementById("contraseña").value;
-  let tel = document.getElementById("tel").value;
+  let especialidad = document.getElementById("especialidad").value;
   let semestre_cursado = document.getElementById("semestre_cursado").value;
 
   formData.append("nombre", nombre);
@@ -17,7 +17,7 @@ $("#formRegistro").on("submit", function (e) {
   formData.append("num_control", num_control);
   formData.append("correo", correo);
   formData.append("contraseña", contraseña);
-  formData.append("tel", tel);
+  formData.append("especialidad", especialidad);
   formData.append("semestre_cursado", semestre_cursado);
   // Attach file
   formData.append("archivo", $("input[type=file]")[0].files[0]);

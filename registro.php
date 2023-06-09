@@ -47,20 +47,19 @@ if (isset($_SESSION['SesionIniciada'])) {
                     <a href="index.php">INICIO</a>
                 </li>
                 <li>
-                    <a href="registro.php">REGISTRARSE</a>
+                    <a href="registro.php" class="active">REGISTRO</a>
                 </li>
                 <li>
-                    <a href="login.php" class="active">INICIAR SESION</a>
+                    <a href="login.php">INICIAR SESION</a>
                 </li>
             </ul>
         </div>
     </header>
     <form id="formRegistro" class="form-register" method="post">
-        <h1>REGISTRATE</h1>
+        <h1>REGISTRO</h1>
         <div CLASS="contenedor">
             <nav class="switch-cuenta">
                 <a href="#">ALUMNO</a>
-                <a href="docente-registro.php">JEFE DE CARRERA</a>
             </nav>
             <div class="input-contenedor">
                 <i class="fa-solid fa-person icon"></i>
@@ -84,8 +83,8 @@ if (isset($_SESSION['SesionIniciada'])) {
 
             <div class="input-contenedor">
                 <i class="fa-solid fa-id-card icon"></i>
-                <label for="archivo">Foto de alumno</label>
-                <input type="file" name="archivo" id="archivo" class="input-cont1" required />
+                <label for="archivo" class="label-file">Foto de alumno</label>
+                <input type="file" name="archivo" id="archivo" class="input-file" required />
             </div>
 
             <div class="input-contenedor">
@@ -97,17 +96,30 @@ if (isset($_SESSION['SesionIniciada'])) {
                 <input type="password" name="contraseña" placeholder="Contraseña" id="contraseña" required>
             </div>
 
-            <div class="input-contenedor">
-                <i class="fa-solid fa-mobile icon"></i>
-                <input class="tel" type="tel" name="tel" placeholder="Numero Celular" id="tel" required>
+            <div class="input-contenedor" style="
+    color: #000;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-left: 54px;
+">
+
+                <label class="pb-2">Especialidad</label>
+                <select class="form-control" name="especialidad" id="especialidad">
+                    <option value="NA">No Aplica</option>
+                    <option value="Software">Ingeneria de Software</option>
+                    <option value="Redes">Redes y Seguridad Informatica</option>
+                    <option value="Base">Base de Datos</option>
+
+                </select>
             </div>
+
 
             <div class="input-contenedor">
                 <i class="fa-solid fa-hashtag icon"></i>
                 <input type="number" name="semestre_cursado" placeholder="Semestre Cursado" id="semestre_cursado" required>
             </div>
 
-            <input type="submit" name="REGISTRO" value="Registar" class="button">
+            <input type="submit" name="REGISTRO" value="Registrar" class="button">
             <br><br>
             <input type="reset" name="LIMPIAR" value="Limpiar" class="bot_reset">
 

@@ -48,7 +48,7 @@ if (isset($_SESSION['SesionIniciada'])) {
                     <a href="index.php">INICIO</a>
                 </li>
                 <li>
-                    <a href="registro.php">REGISTRARSE</a>
+                    <a href="registro.php">REGISTRO</a>
                 </li>
                 <li>
                     <a href="login.php" class="active">INICIAR SESION</a>

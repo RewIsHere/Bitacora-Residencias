@@ -35,32 +35,14 @@ if (isset($_POST["tipo_doc"])) {
             move_uploaded_file($nombreArchivoTemp, $archivo_ubi);
 
             switch ($_POST['tipo_doc']) {
-                case 'Solicitud_resi':
-                    $sql = "INSERT INTO docs_alumno(Solicitud_resi, Id_alumno) VALUES(?,?) ON DUPLICATE KEY UPDATE Solicitud_resi = ?, Id_alumno= ?";
+                case 'Creditos':
+                    $sql = "INSERT INTO docs_alumno(Creditos, Id_alumno) VALUES(?,?) ON DUPLICATE KEY UPDATE Creditos = ?, Id_alumno= ?";
                     break;
-                case 'Carta_acep':
-                    $sql = "INSERT INTO docs_alumno(Carta_acep, Id_alumno) VALUES(?,?) ON DUPLICATE KEY UPDATE Carta_acep = ?, Id_alumno= ?";
+                case 'Justificantes':
+                    $sql = "INSERT INTO docs_alumno(Justificantes, Id_alumno) VALUES(?,?) ON DUPLICATE KEY UPDATE Justificantes = ?, Id_alumno= ?";
                     break;
-                case 'Reporte_pre':
-                    $sql = "INSERT INTO docs_alumno(Reporte_pre, Id_alumno) VALUES(?,?) ON DUPLICATE KEY UPDATE Reporte_pre = ?, Id_alumno= ?";
-                    break;
-                case 'Reporte_final':
-                    $sql = "INSERT INTO docs_alumno(Reporte_final, Id_alumno) VALUES(?,?) ON DUPLICATE KEY UPDATE Reporte_final = ?, Id_alumno= ?";
-                    break;
-                case 'Cumpl_resi_doce':
-                    $sql = "INSERT INTO docs_alumno(Cumpl_resi_doce, Id_alumno) VALUES(?,?) ON DUPLICATE KEY UPDATE Cumpl_resi_doce = ?, Id_alumno= ?";
-                    break;
-                case 'Eva_segui':
-                    $sql = "INSERT INTO docs_alumno(Eva_segui, Id_alumno) VALUES(?,?) ON DUPLICATE KEY UPDATE Eva_segui = ?, Id_alumno= ?";
-                    break;
-                case 'Eva_repor':
-                    $sql = "INSERT INTO docs_alumno(Eva_repor, Id_alumno) VALUES(?,?) ON DUPLICATE KEY UPDATE Eva_repor = ?, Id_alumno= ?";
-                    break;
-                case 'Car_termin_resi':
-                    $sql = "INSERT INTO docs_alumno(Car_termin_resi, Id_alumno) VALUES(?,?) ON DUPLICATE KEY UPDATE Car_termin_resi = ?, Id_alumno= ?";
-                    break;
-                case 'Liberacion_repor':
-                    $sql = "INSERT INTO docs_alumno(Liberacion_repor, Id_alumno) VALUES(?,?) ON DUPLICATE KEY UPDATE Liberacion_repor = ?, Id_alumno= ?";
+                case 'Altas_y_Bajas':
+                    $sql = "INSERT INTO docs_alumno(Altas_y_Bajas, Id_alumno) VALUES(?,?) ON DUPLICATE KEY UPDATE Altas_y_Bajas = ?, Id_alumno= ?";
                     break;
 
                 default:
@@ -74,7 +56,7 @@ if (isset($_POST["tipo_doc"])) {
             $archivosql = $con->query($archivoquery);
             $archivorow = $archivosql->fetch_assoc();
             echo '<tr>
-<td style="text-align: center;"><span class="badge bg-primary">Archivo subido</span></td>
+<td style="text-align: center;"><span class="badge bg-primary">Archivo enviado</span></td>
 <td style="text-align: center;">' . $row["nombre"] . ' ' . $row["apellido_pat"] . ' ' . $row["apellido_mat"] . '</td>
 <td style="text-align: center;"><a href="archivos/' . $archivorow[$_POST['tipo_doc']] . '" target="_blank" class="btn btn-warning" role="button">Abrir</a>
 </td>

@@ -128,6 +128,10 @@ require_once 'services/ConexionBD.php';
                                                     <input type="hidden" name="num_control" value="<?php echo $rowSql['num_control']; ?>">
                                                     <button type="submit" class="btn btn-warning"><?php echo $buttonText; ?></button>
                                                 </form>
+                                                <form action="includes/eliminar.php" method="post">
+                                                    <input type="hidden" name="num_control2" value="<?php echo $rowSql['num_control']; ?>">
+                                                    <button type="submit" class="btn btn-danger">ELIMINAR</button>
+                                                </form>
                                             </td>
                                         </tr>
 
