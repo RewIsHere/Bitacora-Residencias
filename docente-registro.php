@@ -28,10 +28,7 @@ if (isset($_SESSION['SesionIniciada'])) {
 <head>
     <meta>
     <script src="https://kit.fontawesome.com/ba719609d3.js" crossorigin="anonymous"></script>
-    <meta name="description" content="BITACORA  RESIDENCIAS ITSPR">
-    <meta name="key" content="BITACORA, REDICENCIAS, ITSPR, INSTITUTO TECNOLOGICO SUPERIOR DE POZA RICA">
-    <META NAME="AUTHOR" CONTENT="Omar Nayef Pineda Blanco">
-    <title>BITACORA ITSPR</title>
+    <title>SISTEMA KARDEX</title>
     <link rel="stylesheet" href="css/register-styles.css">
     <link rel="shortcut icon" href="assets/LOGO_ITSPR.jpg" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -62,7 +59,7 @@ if (isset($_SESSION['SesionIniciada'])) {
         <div CLASS="contenedor">
             <nav class="switch-cuenta">
                 <a href="registro.php">ALUMNO</a>
-                <a href="#">DOCENTE</a>
+                <a href="#">JEFE DE CARRERA</a>
             </nav>
             <div class="input-contenedor">
                 <i class="fa-solid fa-person icon"></i>
@@ -77,11 +74,6 @@ if (isset($_SESSION['SesionIniciada'])) {
             <div class="input-contenedor">
                 <i class="fa-solid fa-person icon"></i>
                 <input type="text" name="apellido_mat" placeholder="Apellido Materno" required>
-            </div>
-
-            <div class="input-contenedor">
-                <i class="fa-solid fa-eye icon"></i>
-                <input type="text" name="carrera" placeholder="Carrera" required>
             </div>
 
             <div class="input-contenedor">

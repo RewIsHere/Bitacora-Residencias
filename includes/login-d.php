@@ -9,7 +9,7 @@ if (!isset($_POST['correo'], $_POST['contraseña'])) {
 session_start();
 
 // PREPARA EL QUERY QUE SE ENCARGARA DE COMPROBAR QUE EN LA TABLA DE "DOCENTE" EXISTA EL CORREO INTRODUCIDO EN EL FORMULARIO
-if ($stmt = $con->prepare('SELECT correo, nombre, contraseña FROM docente WHERE correo = ?')) {
+if ($stmt = $con->prepare('SELECT correo, nombre, contraseña FROM JefeCarrera WHERE correo = ?')) {
         // REMPLAZA EL SIMBOLO = ? EN EL QUERY DEL IF , ES DECIR WHERE correo = ?, donde ? = CORREO DEL DOCENTE
         $stmt->bind_param('s', $_POST['correo']);
         $stmt->execute();

@@ -13,7 +13,7 @@ $uname = $_SESSION['correo'];
 
 // PREGUNTA SI EL USUARIO QUE HA INICIADO SESION ES UN DOCENTE
 
-if ($stmt = $con->prepare('SELECT * FROM docente WHERE correo = ?')) {
+if ($stmt = $con->prepare('SELECT * FROM JefeCarrera WHERE correo = ?')) {
     $stmt->bind_param('s', $uname);
     $stmt->execute();
     $stmt->store_result();

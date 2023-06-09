@@ -12,7 +12,7 @@ if (!isset($_SESSION['SesionIniciada'])) {
 $uname = $_SESSION['correo'];
 
 // HACE UN QUERY PARA SABER SI EL USUARIO QUE HA INICIADO SESION ES UN DOCENTE
-if ($stmt = $con->prepare('SELECT * FROM docente WHERE correo = ?')) {
+if ($stmt = $con->prepare('SELECT * FROM JefeCarrera WHERE correo = ?')) {
     $stmt->bind_param('s', $uname);
     $stmt->execute();
     $stmt->store_result();
@@ -57,14 +57,14 @@ if ($stmt = $con->prepare('SELECT * FROM docente WHERE correo = ?')) {
     </header>
     <nav class="navtop">
         <div>
-            <h1>Panel de Docente</h1>
+            <h1>Panel de Jefe de Carrera</h1>
             <a href="logout.php"><i class="fas fa-sign-out-alt"></i>Cerrar Sesion</a>
         </div>
     </nav>
     <div class="content">
         <h2>Inicio | Panel de Docente</h2>
         <p style="background-color: #607eff;">Bienvenido de nuevo, <?= $_SESSION['nombre'] ?>!</p>
-        <p>Mira los documentos subidos por los alumnos, <a href="archivos.php">CLICK AQUI </a></p>
+        <p>Mirar los alumnos que necesitan ser aprobados, <a href="aprobaciones.php">CLICK AQUI </a></p>
     </div>
 </body>
 

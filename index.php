@@ -4,10 +4,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="BITACORA  RESIDENCIAS ITSPR">
-    <meta name="key" content="BITACORA, REDICENCIAS, ITSPR, INSTITUTO TECNOLOGICO SUPERIOR DE POZA RICA">
-    <META NAME="AUTHOR" CONTENT="Omar Nayef Pineda Blanco">
-    <title>BITACORA ITSPR</title>
+    <title>SISTEMA KARDEX</title>
     <link rel="stylesheet" href="css/index-styles.css">
     <link rel="shortcut icon" href="assets/LOGO_ITSPR.jpg" type="image/x-icon">
 </head>
@@ -31,8 +28,7 @@
             </ul>
         </div>
         <section class="textos-header">
-            <h1><span>BITACORA DE RESIDENCIAS</span></h1>
-            <h2><span>FACILITANDO LA VIDA ESTUDIANTIL</span></h2>
+            <h1><span>SISTEMA DE KARDEX</span></h1>
         </section>
     </header>
 

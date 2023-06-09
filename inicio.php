@@ -1,11 +1,20 @@
 <?php
 // INICIAMOS EL PROCESO DE SESION
+require_once 'services/ConexionBD.php';
+
 session_start();
 // PREGUNTA SI YA HEMOS INICIADO SESION EN CASO DE QUE NO, NOS REDIRECCIONA AL INDEX
 if (!isset($_SESSION['SesionIniciada'])) {
     header('Location: index.php');
     exit;
 }
+
+
+
+$uname = $_SESSION['no_control'];
+$globalquery = "SELECT * FROM alumno WHERE num_control ='" . $uname . "' ";
+$globalsql = $con->query($globalquery);
+$row = $globalsql->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -41,15 +50,26 @@ if (!isset($_SESSION['SesionIniciada'])) {
     </header>
     <nav class="navtop">
         <div>
-            <h1>Panel de Usuario</h1>
+            <h1>Panel de Alumno</h1>
             <a href="logout.php"><i class="fas fa-sign-out-alt"></i>Cerrar Sesion</a>
         </div>
     </nav>
     <div class="content">
-        <h2>Inicio | Panel de Usuario</h2>
+        <h2>Inicio | Panel de Alumno</h2>
         <p style="background-color: #607eff;">Bienvenido de nuevo, <?= $_SESSION['nombre'] ?>!</p>
-        <a href="upload_archivos.php" class="btn btn-warning" role="button">SUBIR ARCHIVOS</a>
-        <p><i class="fas fa-exclamation-triangle"></i> COMPLETA TU PERFIL, <a href="empresa.php">LLENA LOS DATOS DE LA EMPRESA </a></p>
+        <?php
+        $aprobadoquery = "SELECT aprobado FROM alumno WHERE num_control ='" . $uname . "' AND aprobado = '1'";
+        $aprobadosql = $con->query($aprobadoquery);
+        if ($aprobadosql) {
+            if (mysqli_num_rows($aprobadosql) > 0) {
+                $aprovedTag = '<a href="#" class="btn btn-warning" role="button">SOLICITAR ARCHIVOS</a>';
+            } else {
+                $aprovedTag = '<p><i class="fas fa-exclamation-triangle"></i> TU CUENTA AUN NO HA SIDO APROBADA POR EL JEFE DE CARRERA, POR FAVOR PONTE EN CONTACTO EN CASO DE CUALQUIER DUDA</p>';
+            }
+        } else {
+            echo 'Error';
+        } ?>
+        <?php echo $aprovedTag ?>
     </div>
 </body>
 

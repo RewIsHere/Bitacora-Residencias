@@ -15,13 +15,12 @@ if (empty($_POST['nombre']) || empty($_POST['contraseña']) || empty($_POST['cor
 $nombre = $_POST['nombre'];
 $apellido_pat = $_POST['apellido_pat'];
 $apellido_mat = $_POST['apellido_mat'];
-$carrera = $_POST['carrera'];
 $correo = $_POST['correo'];
 $contra = $_POST['contraseña'];
 $tel = $_POST['tel'];
 
 // LLAMAMOS A UN PROCEDIMIENTO ALMACENADO PARA VERIFICAR SI LA CUENTA EXISTE
-if ($stmt = $con->prepare("call verificarCuentaDocente('$correo')")) {
+if ($stmt = $con->prepare("call verificarCuentaJefe('$correo')")) {
     $stmt->execute();
     $stmt->store_result();
     // SI DA MAYOR A 1 SIGNIFICA QUE EL PROCEDIMIENTO ALMACENADO ENCONTRO A UN USUARIO CON ESE NOMBRE
@@ -31,7 +30,7 @@ if ($stmt = $con->prepare("call verificarCuentaDocente('$correo')")) {
     } else {
         $stmt->close();
         // LA CUENTA NO EXISTE , LLAMAMOS AL PROCEDIMIENTO ALMACENADO PARA CREAR LA CUENTA
-        if ($stmt = $con->prepare("call registar_docente('$nombre','$apellido_pat','$apellido_mat','$carrera','$tel','$correo','$contra')")) {
+        if ($stmt = $con->prepare("call registar_jefe('$nombre','$apellido_pat','$apellido_mat','$tel','$correo','$contra')")) {
             $stmt->execute();
             echo "success";
         } else {

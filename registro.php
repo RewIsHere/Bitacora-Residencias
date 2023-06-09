@@ -6,7 +6,7 @@ session_start();
 $uname = $_SESSION['correo'];
 
 if (isset($_SESSION['SesionIniciada'])) {
-    if ($stmt = $con->prepare('SELECT * FROM docente WHERE correo = ?')) {
+    if ($stmt = $con->prepare('SELECT * FROM JefeCarrera WHERE correo = ?')) {
         $stmt->bind_param('s', $uname);
         $stmt->execute();
         $stmt->store_result();
@@ -28,10 +28,7 @@ if (isset($_SESSION['SesionIniciada'])) {
 <head>
     <meta>
     <script src="https://kit.fontawesome.com/ba719609d3.js" crossorigin="anonymous"></script>
-    <meta name="description" content="BITACORA  RESIDENCIAS ITSPR">
-    <meta name="key" content="BITACORA, REDICENCIAS, ITSPR, INSTITUTO TECNOLOGICO SUPERIOR DE POZA RICA">
-    <META NAME="AUTHOR" CONTENT="Omar Nayef Pineda Blanco">
-    <title>BITACORA ITSPR</title>
+    <title>SISTEMA KARDEX</title>
     <link rel="stylesheet" href="css/register-styles.css">
     <link rel="shortcut icon" href="assets/LOGO_ITSPR.jpg" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -63,56 +60,53 @@ if (isset($_SESSION['SesionIniciada'])) {
         <div CLASS="contenedor">
             <nav class="switch-cuenta">
                 <a href="#">ALUMNO</a>
-                <a href="docente-registro.php">DOCENTE</a>
+                <a href="docente-registro.php">JEFE DE CARRERA</a>
             </nav>
             <div class="input-contenedor">
                 <i class="fa-solid fa-person icon"></i>
-                <input type="text" name="nombre" placeholder="Nombre" required>
+                <input type="text" name="nombre" placeholder="Nombre" id="nombre" required>
             </div>
 
             <div class="input-contenedor">
                 <i class="fa-solid fa-person icon"></i>
-                <input type="text" name="apellido_pat" placeholder="Apellido Paterno" required>
+                <input type="text" name="apellido_pat" placeholder="Apellido Paterno" id="apellido_pat" required>
             </div>
 
             <div class="input-contenedor">
                 <i class="fa-solid fa-person icon"></i>
-                <input type="text" name="apellido_mat" placeholder="Apellido Materno" required>
+                <input type="text" name="apellido_mat" placeholder="Apellido Materno" id="apellido_mat" required>
             </div>
 
             <div class="input-contenedor">
                 <i class="fa-solid fa-gamepad icon"></i>
-                <input type="text" name="num_control" placeholder="Numero de control" required>
+                <input type="text" name="num_control" placeholder="Numero de control" id="num_control" required>
             </div>
 
             <div class="input-contenedor">
-                <i class="fa-solid fa-eye icon"></i>
-                <input type="text" name="carrera" placeholder="Carrera" required>
+                <i class="fa-solid fa-id-card icon"></i>
+                <label for="archivo">Foto de alumno</label>
+                <input type="file" name="archivo" id="archivo" class="input-cont1" required />
             </div>
 
             <div class="input-contenedor">
                 <i class="fa-solid fa-envelope icon"></i>
-                <input type="email" name="correo" placeholder="Correo Institucional" required>
+                <input type="email" name="correo" placeholder="Correo Institucional" id="correo" required>
             </div>
             <div class="input-contenedor">
                 <i class="fa-solid fa-gamepad icon"></i>
-                <input type="password" name="contraseña" placeholder="Contraseña" required>
+                <input type="password" name="contraseña" placeholder="Contraseña" id="contraseña" required>
             </div>
 
             <div class="input-contenedor">
                 <i class="fa-solid fa-mobile icon"></i>
-                <input class="tel" type="tel" name="tel" placeholder="Numero Celular" required>
+                <input class="tel" type="tel" name="tel" placeholder="Numero Celular" id="tel" required>
             </div>
 
             <div class="input-contenedor">
                 <i class="fa-solid fa-hashtag icon"></i>
-                <input type="number" name="semestre_cursado" placeholder="Semestre Cursado" required>
+                <input type="number" name="semestre_cursado" placeholder="Semestre Cursado" id="semestre_cursado" required>
             </div>
 
-            <div class="input-contenedor">
-                <i class="fa-solid fa-arrow-up-9-1 icon"></i>
-                <input type="number" name="mat_pend" placeholder="Materias Pendientes" required>
-            </div>
             <input type="submit" name="REGISTRO" value="Registar" class="button">
             <br><br>
             <input type="reset" name="LIMPIAR" value="Limpiar" class="bot_reset">
